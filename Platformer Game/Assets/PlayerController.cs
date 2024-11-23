@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
 
     //Ground check
     public bool isGrounded;
+    public bool Wallclimb;
 
     //Animation variables
     public bool moving;
@@ -53,9 +54,10 @@ public class PlayerController : MonoBehaviour
             moving = true;
         }
 
-        if (Input.GetKey("w") && isGrounded)
+        if (Input.GetKey("space") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        
         }
 
         if (Input.GetKey("a") || Input.GetKeyUp("d"))
@@ -84,6 +86,15 @@ public class PlayerController : MonoBehaviour
             gm.score++;
             Destroy(collision.gameObject);
         }
+
+        if (collision.gameObject.tag.Equals("wall") || Input.GetKeyUp("e"))
+        {
+            Debug.Log("climbing");
+            Wallclimb = true;
+            // Temporarily disable gravity
+
+          rb.simulated = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -92,6 +103,16 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+
+        if (collision.gameObject.tag.Equals("wall"))
+        {
+            Wallclimb = false;
+            // Re-enable gravity
+
+            rb.simulated = true;
+        }
     }
 
+    
+    
 }
