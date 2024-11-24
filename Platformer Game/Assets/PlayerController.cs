@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     //Animation variables
     Animator anim;
     public bool moving;
-
+    public bool jump;
     //counter
     public float coincounter;
     public float coin;
@@ -83,7 +83,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey("space") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-
+            jump = true;
         }
 
         if (Input.GetKey("a") || Input.GetKeyUp("d"))
@@ -92,6 +92,7 @@ public class PlayerController : MonoBehaviour
         }
 
         anim.SetBool("isMoving", moving);
+        anim.SetBool("Jumping", jump);
         transform.position = newPosition;
         transform.localScale = newScale;
 
@@ -104,6 +105,7 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("i hit the ground");
             isGrounded = true;
+            jump = false;
         }
 
         if (collision.gameObject.tag.Equals("coin"))
