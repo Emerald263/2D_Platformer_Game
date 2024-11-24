@@ -9,14 +9,20 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     public float jumpForce;
     public float speed;
+    public float dash;
+
 
     //Ground check
     public bool isGrounded;
     public bool Wallclimb;
 
     //Animation variables
-    public bool moving;
     Animator anim;
+    public bool moving;
+
+    //counter
+    public float coincounter;
+    public float coin;
 
     public GameManager gm;
 
@@ -37,6 +43,8 @@ public class PlayerController : MonoBehaviour
         float currentScale = Mathf.Abs(transform.localScale.x); //take absolute value of the current x scale, this is always positive
 
 
+        rb.velocity = new Vector2(rb.velocity.x * 5f, rb.velocity.y);
+
         if (Input.GetKey("a") || Input.GetKey(KeyCode.LeftArrow))
         {
             newPosition.x -= speed;
@@ -54,10 +62,28 @@ public class PlayerController : MonoBehaviour
             moving = true;
         }
 
+        if (Input.GetKey("a") && Input.GetKey(KeyCode.LeftShift))
+        {
+            newPosition.x -= speed + dash;
+            newScale.x = -currentScale;
+            //is moving
+            moving = true;
+
+        }
+
+        if (Input.GetKey("d") && Input.GetKey(KeyCode.LeftShift))
+        {
+            newPosition.x += speed + dash;
+            newScale.x = currentScale;
+            //is moving
+            moving = true;
+        }
+
+
         if (Input.GetKey("space") && isGrounded)
         {
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-        
+
         }
 
         if (Input.GetKey("a") || Input.GetKeyUp("d"))
@@ -71,7 +97,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-
+ 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag.Equals("Ground"))
@@ -93,8 +119,15 @@ public class PlayerController : MonoBehaviour
             Wallclimb = true;
             // Temporarily disable gravity
 
-          rb.simulated = false;
+            rb.simulated = false;
         }
+
+        if (collision.gameObject.tag.Equals("coin"))
+        {
+            Debug.Log("obtained coin");
+            coincounter++; //player has added a coin 
+        }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -104,15 +137,10 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
 
-        if (collision.gameObject.tag.Equals("wall"))
-        {
-            Wallclimb = false;
-            // Re-enable gravity
-
-            rb.simulated = true;
-        }
     }
+    
 
-    
-    
 }
+    
+    
+
