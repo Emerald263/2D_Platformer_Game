@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
         {
             newPosition.x -= speed + dash;
             newScale.x = -currentScale;
-            //is moving
+            //is dashing
             moving = true;
 
         }
@@ -75,7 +75,7 @@ public class PlayerController : MonoBehaviour
         {
             newPosition.x += speed + dash;
             newScale.x = currentScale;
-            //is moving
+            //is dashing
             moving = true;
         }
 
@@ -126,6 +126,12 @@ public class PlayerController : MonoBehaviour
         {
             Debug.Log("obtained coin");
             coincounter++; //player has added a coin 
+        }
+
+        if (collision.gameObject.tag.Equals("death"))
+        {
+            Debug.Log("death");
+             
         }
 
     }
