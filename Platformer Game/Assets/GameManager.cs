@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-     
+
 
 
     }
@@ -21,6 +21,19 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         scoreText.text = "Score: " + score;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Player"))
+        {
+            Debug.Log("ive been collected!");
+            Destroy(this.gameObject); //destroy the coin
+            score++;
+
+        }
+    }
+
 }

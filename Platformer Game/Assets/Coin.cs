@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class coin : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class coin : MonoBehaviour
         {
             Debug.Log("ive been collected!");
             Destroy(this.gameObject); //destroy the coin
+
         }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting.ReorderableList;
+using UnityEngine.SceneManagement; //importing SceneManagement Library
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -20,9 +21,7 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     public bool moving;
     public bool jump;
-    //counter
-    public float coincounter;
-    public float coin;
+ 
 
     public GameManager gm;
 
@@ -108,13 +107,6 @@ public class PlayerController : MonoBehaviour
             jump = false;
         }
 
-        if (collision.gameObject.tag.Equals("coin"))
-        {
-            //score goes up
-            gm.score++;
-            Destroy(collision.gameObject);
-        }
-
         if (collision.gameObject.tag.Equals("wall") || Input.GetKeyUp("e"))
         {
             Debug.Log("climbing");
@@ -124,16 +116,10 @@ public class PlayerController : MonoBehaviour
             rb.simulated = false;
         }
 
-        if (collision.gameObject.tag.Equals("coin"))
-        {
-            Debug.Log("obtained coin");
-            coincounter++; //player has added a coin 
-        }
-
         if (collision.gameObject.tag.Equals("death"))
         {
             Debug.Log("death");
-             
+            SceneManager.LoadScene(1);
         }
 
     }
