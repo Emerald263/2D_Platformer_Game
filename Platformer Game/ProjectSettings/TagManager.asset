@@ -8,6 +8,7 @@ TagManager:
   - coin
   - wall
   - death
+  - door
   layers:
   - Default
   - TransparentFX

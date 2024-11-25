@@ -5,10 +5,12 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class coin : MonoBehaviour
 {
+   
+
     // Start is called before the first frame update
     void Start()
     {
-
+      
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class coin : MonoBehaviour
         if (collision.gameObject.tag.Equals("Player"))
         {
             Debug.Log("ive been collected!");
+           
             Destroy(this.gameObject); //destroy the coin
 
         }

@@ -21,13 +21,18 @@ public class PlayerController : MonoBehaviour
     Animator anim;
     public bool moving;
     public bool jump;
- 
+
+    //audio variables
+    public AudioSource soundEffects;
+    public AudioClip[] sounds;
+
 
     public GameManager gm;
 
     // Start is called before the first frame update
     void Start()
     {
+        soundEffects = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
@@ -103,6 +108,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Ground"))
         {
             Debug.Log("i hit the ground");
+            soundEffects.PlayOneShot(sounds[2], .2f); //play walk sound effect
             isGrounded = true;
             jump = false;
         }
@@ -119,7 +125,23 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("death"))
         {
             Debug.Log("death");
+            soundEffects.PlayOneShot(sounds[1], .7f); //play death sound effect
             SceneManager.LoadScene(1);
+        }
+
+        if (collision.gameObject.tag.Equals("door"))
+        {
+            Debug.Log("change scene");
+            soundEffects.PlayOneShot(sounds[0], .7f); //play door sound effect
+            SceneManager.LoadScene(2);
+        }
+
+        if (collision.gameObject.tag.Equals("coin"))
+        {
+            
+            soundEffects.PlayOneShot(sounds[3], .7f); //play coincollect sound effect
+          
+
         }
 
     }

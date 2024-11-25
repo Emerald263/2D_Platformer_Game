@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/2D_Platformer.unity
     guid: 652d47fb99e8c80499164d43d9939e70
+  - enabled: 1
+    path: Assets/New Scene.unity
+    guid: b1876daba599a564a9a28bcfe5f9965f
   m_configObjects: {}
